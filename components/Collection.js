@@ -1,4 +1,33 @@
-export default function Collection() {
+import Image from "next/image";
+import { getProducts } from "@/lib/shopify";
+
+// Revalidate this section's data at most once a minute. Swap for
+// on-demand revalidation via a Shopify webhook once you're ready.
+export const revalidate = 60;
+
+const FALLBACK_SWATCHES = [
+  "fabric-sindoor",
+  "fabric-haldi",
+  "fabric-neel",
+  "fabric-kesari",
+  "fabric-kholna",
+];
+
+function formatPrice(amount, currencyCode) {
+  const symbol = currencyCode === "INR" ? "\u20b9" : `${currencyCode} `;
+  return `${symbol}${Number(amount).toLocaleString("en-IN")}`;
+}
+
+export default async function Collection() {
+  let products = [];
+  try {
+    products = await getProducts(6);
+  } catch (err) {
+    // Falls back to an empty state below — most likely the Shopify env
+    // vars aren't set yet (see .env.local.example / README).
+    console.error("Could not load products from Shopify:", err.message);
+  }
+
   return (
     <section id="collections" className="py-20 md:py-28">
       <div className="mx-auto max-w-7xl px-6">
@@ -23,101 +52,58 @@ export default function Collection() {
           </a>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-6">
-          <div className="fabric-card rounded-sm shadow-xl min-h-[440px]">
-            <div className="fabric-bg fabric fabric-sindoor" />
-            <div className="fabric-scrim" />
-            <div className="fabric-content flex flex-col justify-between h-full p-6">
-              <span className="self-start bg-haldi text-ink text-[10px] tracking-widest2 uppercase px-3 py-1.5 rounded-full">
-                Bestseller
-              </span>
-              <div className="text-cream">
-                <span className="text-[10px] tracking-widest2 uppercase text-cream/70">
-                  Gharchola &middot; Pure Gaji Silk
-                </span>
-                <div className="flex items-end justify-between mt-2">
-                  <div>
-                    <h3 className="font-display text-3xl">Rani Sindoor</h3>
-                    <p className="mt-1 text-[15px]">&#8377; 28,500</p>
-                  </div>
-                  <a
-                    href="#"
-                    className="text-[11px] tracking-widest2 uppercase hover:text-haldi transition-colors"
-                  >
-                    Discover &rarr;
-                  </a>
-                </div>
-              </div>
-            </div>
+        {products.length === 0 ? (
+          <div className="border border-dashed border-ink/20 rounded-sm p-10 text-center text-[14px] text-ink/50">
+            No products found yet. Once <code>SHOPIFY_STORE_DOMAIN</code> and{" "}
+            <code>SHOPIFY_STOREFRONT_ACCESS_TOKEN</code> are set (and your
+            Headless channel storefront has products published to it),
+            they&apos;ll appear here automatically.
           </div>
-
-          <div className="grid grid-rows-2 gap-6">
-            <div className="fabric-card rounded-sm shadow-xl min-h-[200px]">
-              <div className="fabric-bg fabric fabric-haldi" />
-              <div className="fabric-scrim" />
-              <div className="fabric-content flex flex-col justify-between h-full p-6">
-                <span className="text-[10px] tracking-widest2 uppercase text-ink/70">
-                  Cotton &middot; Everyday
-                </span>
-                <div className="flex items-end justify-between text-ink">
-                  <div>
-                    <h3 className="font-display text-2xl">Haldi Bindu</h3>
-                    <p className="mt-1 text-[14px]">&#8377; 6,800</p>
+        ) : (
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            {products.map((product, i) => {
+              const price = product.priceRange?.minVariantPrice;
+              const swatch = FALLBACK_SWATCHES[i % FALLBACK_SWATCHES.length];
+              return (
+                <a
+                  href={`#`}
+                  key={product.id}
+                  className="fabric-card rounded-sm shadow-xl min-h-[360px] block"
+                >
+                  <div className="fabric-bg">
+                    {product.featuredImage ? (
+                      <Image
+                        src={product.featuredImage.url}
+                        alt={product.featuredImage.altText || product.title}
+                        fill
+                        sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className={`fabric h-full ${swatch}`} />
+                    )}
                   </div>
-                  <a
-                    href="#"
-                    className="text-[11px] tracking-widest2 uppercase hover:text-maroon transition-colors"
-                  >
-                    Shop &rarr;
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-6">
-              <div className="fabric-card rounded-sm shadow-xl min-h-[200px]">
-                <div className="fabric-bg fabric fabric-neel" />
-                <div className="fabric-scrim" />
-                <div className="fabric-content flex flex-col justify-between h-full p-5">
-                  <span className="text-[9px] tracking-widest2 uppercase text-cream/70">
-                    Georgette
-                  </span>
-                  <div className="text-cream">
-                    <h3 className="font-display text-lg">Chandrakala</h3>
-                    <div className="flex items-end justify-between mt-1">
-                      <p className="text-[13px]">&#8377; 13,900</p>
-                      <a
-                        href="#"
-                        className="text-[10px] tracking-widest2 uppercase hover:text-haldi transition-colors"
-                      >
+                  <div className="fabric-scrim" />
+                  <div className="fabric-content flex flex-col justify-end h-full p-6 text-cream">
+                    <h3 className="font-display text-2xl leading-snug">
+                      {product.title}
+                    </h3>
+                    <div className="flex items-end justify-between mt-2">
+                      {price && (
+                        <p className="text-[14px]">
+                          {formatPrice(price.amount, price.currencyCode)}
+                        </p>
+                      )}
+                      <span className="text-[11px] tracking-widest2 uppercase hover:text-haldi transition-colors">
                         Shop &rarr;
-                      </a>
+                      </span>
                     </div>
                   </div>
-                </div>
-              </div>
-
-              <div className="fabric-card rounded-sm shadow-xl min-h-[200px]">
-                <div className="fabric-bg fabric fabric-sindoor" />
-                <div className="fabric-scrim" />
-                <div className="fabric-content flex flex-col justify-center h-full p-5">
-                  <p className="font-display italic text-cream text-[15px] leading-snug">
-                    &ldquo;colour is a season&rdquo;
-                  </p>
-                  <span className="text-[10px] tracking-widest2 uppercase text-cream/60 mt-2">
-                    the palette
-                  </span>
-                  <a
-                    href="#palette"
-                    className="text-[10px] tracking-widest2 uppercase text-haldi mt-3 hover:text-cream transition-colors"
-                  >
-                    View all colours
-                  </a>
-                </div>
-              </div>
-            </div>
+                </a>
+              );
+            })}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );
