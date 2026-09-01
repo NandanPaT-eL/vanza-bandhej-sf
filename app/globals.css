@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --font-display: "Playfair Display", "Georgia", serif;
+  --font-body: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+::selection {
+  background: #5c0f1b;
+  color: #f3e9d3;
+}
+
+/* Fabric swatch placeholders: a dotted "bandhani" texture over a gradient,
+   with a woven stripe border at the base, standing in for real product
+   photography until real images are connected. */
+.fabric {
+  position: relative;
+  overflow: hidden;
+  background-image: radial-gradient(
+      circle,
+      rgba(243, 233, 211, 0.55) 1.5px,
+      transparent 1.6px
+    ),
+    var(--fabric-gradient, linear-gradient(160deg, #c3202e, #7a0f1c));
+  background-size: 16px 16px, 100% 100%;
+}
+
+.fabric::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 14%;
+  z-index: 0;
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(211, 166, 40, 0.9) 0px,
+    rgba(211, 166, 40, 0.9) 3px,
+    rgba(58, 10, 17, 0.55) 3px,
+    rgba(58, 10, 17, 0.55) 7px
+  );
+}
+
+/* Card variant: fabric fills the card as a background layer only, so
+   overlaid text/content (added as a sibling with relative z-10) always
+   stays legible above both the dots and the woven stripe. */
+.fabric-card {
+  position: relative;
+  isolation: isolate;
+}
+.fabric-card > .fabric-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.fabric-card > .fabric-scrim {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: linear-gradient(
+    180deg,
+    rgba(20, 8, 6, 0) 45%,
+    rgba(20, 8, 6, 0.65) 100%
+  );
+}
+.fabric-card > .fabric-content {
+  position: relative;
+  z-index: 2;
+}
+
+.fabric-sindoor {
+  --fabric-gradient: linear-gradient(160deg, #d3283a, #7a0f1c);
+}
+.fabric-haldi {
+  --fabric-gradient: linear-gradient(160deg, #e6bd3d, #a3791a);
+}
+.fabric-kholna {
+  --fabric-gradient: linear-gradient(160deg, #5c1420, #2b0509);
+}
+.fabric-kesari {
+  --fabric-gradient: linear-gradient(160deg, #d17a41, #8a3616);
+}
+.fabric-neel {
+  --fabric-gradient: linear-gradient(160deg, #2c5d8c, #12283f);
+}
+
+/* Portrait placeholder: stands in for real model / product photography */
+.portrait {
+  background: linear-gradient(180deg, #c3202e 0%, #8f1420 100%);
+}
+
+/* Sticky note used for pull-quotes throughout the page */
+.sticky-note {
+  background: #f3e9d3;
+  box-shadow: 0 10px 24px -8px rgba(36, 24, 18, 0.35);
+  transform: rotate(-2deg);
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 32s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
