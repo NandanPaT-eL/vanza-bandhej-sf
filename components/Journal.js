@@ -35,8 +35,9 @@ export default function Journal() {
               Stories, <em className="italic text-maroon">softly told.</em>
             </h2>
           </div>
+          {/* TODO: replace with real article pages once the journal/blog feature is built. */}
           <a
-            href="#"
+            href="/about"
             className="text-[11px] tracking-widest2 uppercase text-ink hover:text-maroon transition-colors"
           >
             All articles &rarr;
@@ -44,8 +45,9 @@ export default function Journal() {
         </div>
 
         <div className="grid sm:grid-cols-3 gap-8">
+          {/* TODO: replace with real article pages once the journal/blog feature is built. */}
           {posts.map((p) => (
-            <a href="#" key={p.title} className="block group">
+            <a href="/about" key={p.title} className="block group">
               <div
                 className={
                   p.kind === "portrait"

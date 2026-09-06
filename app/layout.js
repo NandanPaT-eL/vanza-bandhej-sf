@@ -1,9 +1,16 @@
 import "./globals.css";
+import { CartProvider } from "./cart-context";
+import CartDrawer from "@/components/CartDrawer";
 
 export const metadata = {
   title: "Vanza Bandhej — Elegance of Bandhej",
   description:
     "A home for authentic bandhani, tied by hand — every dot a story, every colour steeped in tradition, straight from the artisans of Gujarat.",
+};
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
 };
 
 export default function RootLayout({ children }) {
@@ -22,7 +29,10 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body className="bg-cream text-ink font-body antialiased">
-        {children}
+        <CartProvider>
+          {children}
+          <CartDrawer />
+        </CartProvider>
       </body>
     </html>
   );

@@ -15,15 +15,30 @@ export default function Footer() {
             Gujarat.
           </p>
           <div className="flex gap-3 mt-5">
-            {["Instagram", "Pinterest", "Email"].map((label) => (
-              <span
-                key={label}
-                aria-label={label}
-                className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center text-[10px]"
-              >
-                {label[0]}
-              </span>
-            ))}
+            <a
+              href="https://www.instagram.com/vanzabandhejanand"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Instagram"
+              className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:border-haldi hover:text-haldi transition-colors"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
+                <circle cx="12" cy="12" r="4" />
+                <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+              </svg>
+            </a>
+            <a
+              href="https://www.facebook.com/share/19NFNwyqQt/?mibextid=wwXIfr"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Facebook"
+              className="w-8 h-8 rounded-full border border-cream/20 flex items-center justify-center hover:border-haldi hover:text-haldi transition-colors"
+            >
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+              </svg>
+            </a>
           </div>
         </div>
 
@@ -32,15 +47,18 @@ export default function Footer() {
             Shop
           </h4>
           <ul className="space-y-2.5 text-[13px]">
-            {["Sindoor Edit", "Gharchola", "Everyday Cotton", "Bridal", "Gift Cards"].map(
-              (item) => (
-                <li key={item}>
-                  <a href="#" className="hover:text-haldi transition-colors">
-                    {item}
-                  </a>
-                </li>
-              )
-            )}
+            {[
+              { label: "Sindoor Edit", href: "/shop?collection=sindoor-edit" },
+              { label: "Gharchola", href: "/shop" },
+              { label: "Everyday Cotton", href: "/shop" },
+              { label: "Bridal", href: "/shop" },
+            ].map((item) => (
+              <li key={item.label}>
+                <a href={item.href} className="hover:text-haldi transition-colors">
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -49,15 +67,19 @@ export default function Footer() {
             The house
           </h4>
           <ul className="space-y-2.5 text-[13px]">
-            {["Our Story", "The Craft", "Artisans", "Journal", "Sustainability"].map(
-              (item) => (
-                <li key={item}>
-                  <a href="#" className="hover:text-haldi transition-colors">
-                    {item}
-                  </a>
-                </li>
-              )
-            )}
+            {[
+              { label: "Our Story", href: "/about" },
+              { label: "The Craft", href: "/#craft" },
+              { label: "Artisans", href: "/about" },
+              { label: "Journal", href: "/#journal" },
+              { label: "Sustainability", href: "/about" },
+            ].map((item) => (
+              <li key={item.label}>
+                <a href={item.href} className="hover:text-haldi transition-colors">
+                  {item.label}
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -75,7 +97,9 @@ export default function Footer() {
             Anand, Gujarat 388001
           </p>
           <a
-            href="#"
+            href="https://www.google.com/maps/search/?api=1&query=C-4+Royal+Invention+Near+Vrundavan+Ground+AV+Road+Vallabh+Vidyanagar+Anand+Gujarat+388001"
+            target="_blank"
+            rel="noopener noreferrer"
             className="inline-block mt-3 text-[11px] tracking-widest2 uppercase text-haldi hover:text-cream transition-colors"
           >
             Get directions
@@ -90,13 +114,13 @@ export default function Footer() {
             tied by hand, worn with heart.
           </span>
           <span className="flex gap-4">
-            <a href="#" className="hover:text-cream transition-colors">
+            <a href="/privacy" className="hover:text-cream transition-colors">
               Privacy
             </a>
-            <a href="#" className="hover:text-cream transition-colors">
+            <a href="/terms" className="hover:text-cream transition-colors">
               Terms
             </a>
-            <a href="#" className="hover:text-cream transition-colors">
+            <a href="/shipping" className="hover:text-cream transition-colors">
               Shipping
             </a>
           </span>

@@ -35,7 +35,7 @@ export default function Heritage() {
               <span className="w-1.5 h-1.5 rounded-full bg-ink/20" />
             </div>
             <a
-              href="#craft"
+              href="/#craft"
               className="text-[11px] tracking-widest2 uppercase text-ink hover:text-maroon transition-colors"
             >
               Read the full story

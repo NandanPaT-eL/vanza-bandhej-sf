@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { getProducts } from "@/lib/shopify";
+import { getCollectionProducts } from "@/lib/shopify";
 
 // Revalidate this section's data at most once a minute. Swap for
 // on-demand revalidation via a Shopify webhook once you're ready.
@@ -21,7 +21,7 @@ function formatPrice(amount, currencyCode) {
 export default async function Collection() {
   let products = [];
   try {
-    products = await getProducts(6);
+    products = await getCollectionProducts("sindoor-edit", 3);
   } catch (err) {
     // Falls back to an empty state below — most likely the Shopify env
     // vars aren't set yet (see .env.local.example / README).
@@ -45,7 +45,7 @@ export default async function Collection() {
             </p>
           </div>
           <a
-            href="#"
+            href="/shop"
             className="inline-flex items-center gap-2 border border-ink/25 rounded-full px-6 py-3 text-[11px] tracking-widest2 uppercase text-ink hover:border-maroon hover:text-maroon transition-colors"
           >
             Shop all sarees <span aria-hidden>&#8599;</span>
@@ -66,7 +66,7 @@ export default async function Collection() {
               const swatch = FALLBACK_SWATCHES[i % FALLBACK_SWATCHES.length];
               return (
                 <a
-                  href={`#`}
+                  href={`/products/${product.handle}`}
                   key={product.id}
                   className="fabric-card rounded-sm shadow-xl min-h-[360px] block"
                 >
