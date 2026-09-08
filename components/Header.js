@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useCart } from "@/app/cart-context";
@@ -144,13 +145,15 @@ export default function Header() {
           )}
 
           {/* Center Logo */}
-          <a href="/" className="text-center leading-none shrink-0 md:px-4">
-            <div className="font-display text-2xl text-ink">
-              Vanza <span className="italic text-maroon">Bandhej</span>
-            </div>
-            <div className="text-[9px] tracking-widest2 uppercase text-ink/50 mt-1">
-              Elegance of Bandhej
-            </div>
+          <a href="/" className="shrink-0 md:px-4 flex items-center justify-center">
+            <Image
+              src="/logo.png"
+              alt="Vanza Bandhej"
+              width={160}
+              height={64}
+              className="h-10 md:h-14 w-auto object-contain"
+              priority
+            />
           </a>
 
           {/* Desktop Right — Search icon + Cart */}
@@ -190,8 +193,14 @@ export default function Header() {
       {isMobileMenuOpen && (
         <div className="fixed inset-0 z-[100] bg-cream md:hidden overflow-y-auto">
           <div className="flex items-center justify-between px-6 py-4 border-b border-ink/10">
-            <a href="/" className="font-display text-2xl text-ink" onClick={() => setIsMobileMenuOpen(false)}>
-              Vanza <span className="italic text-maroon">Bandhej</span>
+            <a href="/" className="flex items-center" onClick={() => setIsMobileMenuOpen(false)}>
+              <Image
+                src="/logo.png"
+                alt="Vanza Bandhej"
+                width={120}
+                height={48}
+                className="h-9 w-auto object-contain"
+              />
             </a>
             <button
               className="p-2 -mr-2 text-ink"

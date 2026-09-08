@@ -3,12 +3,6 @@ import Image from "next/image";
 export default function Hero() {
   return (
     <section id="top" className="relative overflow-hidden pt-16 pb-10 md:pt-24 md:pb-16">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -top-6 left-0 right-0 text-center font-display text-[26vw] leading-none text-ink/[0.05] select-none whitespace-nowrap"
-      >
-        Bandhani
-      </div>
 
       <div className="relative mx-auto max-w-7xl px-6 grid md:grid-cols-2 gap-12 items-center">
         <div>

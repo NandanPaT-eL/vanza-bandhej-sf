@@ -7,7 +7,7 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        cream: "#F3E9D3",
+        cream: "#FAF9F4",
         "cream-dark": "#EBDCB9",
         maroon: {
           DEFAULT: "#5C0F1B",

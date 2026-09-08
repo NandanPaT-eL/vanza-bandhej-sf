@@ -1,14 +1,19 @@
+import Image from "next/image";
+
 export default function Footer() {
   return (
     <footer className="bg-bark text-cream/70">
       <div className="mx-auto max-w-7xl px-6 py-16 grid sm:grid-cols-2 md:grid-cols-4 gap-10">
         <div>
-          <div className="font-display text-2xl text-cream">
-            Vanza <span className="italic text-haldi">Bandhej</span>
-          </div>
-          <div className="text-[9px] tracking-widest2 uppercase text-cream/40 mt-1">
-            Elegance of Bandhej
-          </div>
+          <a href="/">
+            <Image
+              src="/logo.png"
+              alt="Vanza Bandhej"
+              width={140}
+              height={56}
+              className="h-12 w-auto object-contain brightness-0 invert"
+            />
+          </a>
           <p className="text-[13px] leading-relaxed mt-4 max-w-xs">
             A home for authentic bandhani &mdash; every dot tied by hand, every
             colour steeped in tradition, straight from the artisans of
