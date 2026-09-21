@@ -1,8 +1,8 @@
-import Image from "next/image";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { getProducts, getCollectionProducts, getCollections } from "@/lib/shopify";
 import ShopFilters from "./ShopFilters";
+import ProductCard from "@/components/ProductCard";
 import { Suspense } from "react";
 
 export const metadata = {
@@ -11,25 +11,12 @@ export const metadata = {
     "Explore our full collection of handcrafted bandhani sarees — dyed with natural colours and tied by the artisans of Gujarat.",
 };
 
-function formatPrice(amount, currencyCode) {
-  const symbol = currencyCode === "INR" ? "₹" : `${currencyCode} `;
-  return `${symbol}${Number(amount).toLocaleString("en-IN")}`;
-}
-
 const SORT_MAP = {
   "CREATED_AT:true": { sortKey: "CREATED_AT", reverse: true },
   "PRICE:false": { sortKey: "PRICE", reverse: false },
   "PRICE:true": { sortKey: "PRICE", reverse: true },
   "BEST_SELLING:false": { sortKey: "BEST_SELLING", reverse: false },
 };
-
-const FALLBACK_SWATCHES = [
-  "fabric-sindoor",
-  "fabric-haldi",
-  "fabric-neel",
-  "fabric-kesari",
-  "fabric-kholna",
-];
 
 /**
  * Build a composite Shopify product query string from active filters.
@@ -248,58 +235,14 @@ export default async function ShopPage({ searchParams }) {
                   )}
                 </div>
               ) : (
-                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                  {filtered.map((product, i) => {
-                    const price = product.priceRange?.minVariantPrice;
-                    const swatch = FALLBACK_SWATCHES[i % FALLBACK_SWATCHES.length];
-                    return (
-                      <a
-                        key={product.id}
-                        href={`/products/${product.handle}`}
-                        className="fabric-card rounded-sm shadow-xl min-h-[360px] block"
-                      >
-                        <div className="fabric-bg">
-                          {product.featuredImage ? (
-                            <Image
-                              src={product.featuredImage.url}
-                              alt={product.featuredImage.altText || product.title}
-                              fill
-                              sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
-                              className="object-cover"
-                            />
-                          ) : (
-                            <div className={`fabric h-full ${swatch}`} />
-                          )}
-                        </div>
-                        <div className="fabric-scrim" />
-                        <div className="fabric-content flex flex-col justify-end h-full p-6 text-cream">
-                          {!product.availableForSale && (
-                            <span className="mb-2 self-start text-[9px] tracking-widest2 uppercase bg-ink/60 text-cream/80 px-2 py-0.5 rounded-full">
-                              Sold out
-                            </span>
-                          )}
-                          {product.productType && (
-                            <span className="mb-1 text-[9px] tracking-widest2 uppercase text-cream/60">
-                              {product.productType}
-                            </span>
-                          )}
-                          <h2 className="font-display text-2xl leading-snug">
-                            {product.title}
-                          </h2>
-                          <div className="flex items-end justify-between mt-2">
-                            {price && (
-                              <p className="text-[14px]">
-                                {formatPrice(price.amount, price.currencyCode)}
-                              </p>
-                            )}
-                            <span className="text-[11px] tracking-widest2 uppercase hover:text-haldi transition-colors">
-                              Shop &rarr;
-                            </span>
-                          </div>
-                        </div>
-                      </a>
-                    );
-                  })}
+                <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+                  {filtered.map((product, i) => (
+                    <ProductCard
+                      key={product.id}
+                      product={product}
+                      index={i}
+                    />
+                  ))}
                 </div>
               )}
             </div>

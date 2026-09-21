@@ -111,3 +111,17 @@
     animation: none;
   }
 }
+
+/* ── Product card ── */
+/* The image container must clip both the zoom scale and the
+   quick-add button that slides up from the bottom. */
+.product-card__image {
+  overflow: hidden;
+}
+
+/* ── Category strip tiles ── */
+/* Clip the scale effect so it doesn't bleed outside the tile */
+.category-tile {
+  overflow: hidden;
+}
+
