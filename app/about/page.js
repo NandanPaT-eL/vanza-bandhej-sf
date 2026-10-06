@@ -8,11 +8,20 @@ export const metadata = {
     "Learn about Vanza Bandhej — a family rooted in the bandhani tradition of Gujarat, weaving craft into heirloom.",
 };
 
-// Feedback videos stored in /public/feedback/
+// Google Drive video embed URLs (portrait videos, rotated 90° left in CSS)
 const FEEDBACK_VIDEOS = [
-  { file: "/feedback/DSC_0060.MOV", label: "Customer Feedback — 1" },
-  { file: "/feedback/DSC_0061.MOV", label: "Customer Feedback — 2" },
-  { file: "/feedback/DSC_0062.MOV", label: "Customer Feedback — 3" },
+  {
+    embedUrl: "https://drive.google.com/file/d/1vXQkJ0vNzlne36kGRtbNaSbDolbdQXol/preview",
+    label: "Customer Feedback — 1",
+  },
+  {
+    embedUrl: "https://drive.google.com/file/d/12zudCTduociBNVjES9mH0izXaoJGeXxN/preview",
+    label: "Customer Feedback — 2",
+  },
+  {
+    embedUrl: "https://drive.google.com/file/d/1vK6inakPntBEK6zFPNFEMRQqW2FNAbDP/preview",
+    label: "Customer Feedback — 3",
+  },
 ];
 
 export default function AboutPage() {
@@ -89,37 +98,30 @@ export default function AboutPage() {
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
               {FEEDBACK_VIDEOS.map((v) => (
-                <div key={v.file} className="flex flex-col items-center gap-4">
+                <div key={v.embedUrl} className="flex flex-col items-center gap-4">
                   {/*
-                    Videos are shot in portrait (phone held vertically) but stored
-                    as landscape MOV files. We rotate the <video> element -90° (counter-
-                    clockwise / left) to display them correctly, then use a wrapper
-                    that swaps the visual width/height so the layout doesn't collapse.
-                    Wrapper is a fixed portrait aspect-ratio container; the video is
-                    rotated inside it.
+                    Videos were recorded in portrait on a phone but the Drive file
+                    is stored landscape. We rotate the iframe -90° (left / CCW) inside
+                    a 9:16 portrait wrapper so it displays upright.
                   */}
                   <div
                     className="relative overflow-hidden rounded-xl shadow-xl bg-ink/5"
-                    style={{ width: "100%", paddingBottom: "177.78%" /* 9:16 portrait */ }}
+                    style={{ width: "100%", paddingBottom: "177.78%" /* 9:16 */ }}
                   >
-                    <video
-                      src={v.file}
-                      controls
-                      playsInline
-                      preload="metadata"
-                      aria-label={v.label}
+                    <iframe
+                      src={v.embedUrl}
+                      title={v.label}
+                      allow="autoplay"
+                      allowFullScreen
                       style={{
                         position: "absolute",
-                        /* Rotate the video 90° counter-clockwise (left) */
                         transform: "rotate(-90deg)",
-                        /* After rotation the video's own width becomes the visual height,
-                           so we make its width equal the container height (= 100% / 0.5625) */
                         width: "177.78%",
                         height: "56.25%",
                         top: "50%",
                         left: "50%",
                         translate: "-50% -50%",
-                        objectFit: "cover",
+                        border: "none",
                       }}
                     />
                   </div>
