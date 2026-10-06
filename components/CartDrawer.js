@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useCart } from "@/app/cart-context";
 
 function formatPrice(amount, currencyCode) {
@@ -10,9 +11,15 @@ function formatPrice(amount, currencyCode) {
 
 export default function CartDrawer() {
   const { cart, isOpen, closeCart, updateQuantity, removeItem } = useCart();
+  const router = useRouter();
 
   const items = cart?.items ?? [];
   const subtotal = cart?.subtotal ?? { amount: "0", currencyCode: "INR" };
+
+  function goShop() {
+    closeCart();
+    router.push("/shop");
+  }
 
   return (
     <>
@@ -77,10 +84,10 @@ export default function CartDrawer() {
                 Your cart is empty.
               </p>
               <button
-                onClick={closeCart}
+                onClick={goShop}
                 className="text-[11px] tracking-widest2 uppercase text-maroon hover:text-maroon-dark transition-colors"
               >
-                Continue shopping →
+                Browse our collection →
               </button>
             </div>
           ) : (
@@ -175,7 +182,7 @@ export default function CartDrawer() {
               Checkout →
             </button>
             <button
-              onClick={closeCart}
+              onClick={goShop}
               className="w-full text-[11px] tracking-widest2 uppercase text-ink/50 hover:text-ink transition-colors py-1"
             >
               Continue shopping

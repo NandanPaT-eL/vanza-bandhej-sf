@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { getProducts, getCollectionProducts, getCollections } from "@/lib/shopify";
 import ShopFilters from "./ShopFilters";
 import ProductCard from "@/components/ProductCard";
@@ -250,6 +251,7 @@ export default async function ShopPage({ searchParams }) {
         </div>
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }

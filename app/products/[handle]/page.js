@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { getProductByHandle } from "@/lib/shopify";
 import ImageGallery from "./ImageGallery";
 import AddToCartButton from "./AddToCartButton";
@@ -106,6 +107,7 @@ export default async function ProductPage({ params }) {
         </div>
       </main>
       <Footer />
+      <WhatsAppButton />
     </>
   );
 }

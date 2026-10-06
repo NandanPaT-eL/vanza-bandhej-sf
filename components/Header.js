@@ -14,7 +14,6 @@ const SHOP_MENU = [
     links: [
       { label: "All Sarees",    href: "/shop" },
       { label: "Dupattas",      href: "/shop?collection=dupattas" },
-      { label: "Suit Sets",     href: "/shop?collection=suit-sets" },
       { label: "Lehengas",      href: "/shop?collection=lehengas" },
       { label: "Dress Material",href: "/shop?collection=dress-material" },
     ],
@@ -26,16 +25,16 @@ const SHOP_MENU = [
       { label: "Pure Silk",       href: "/shop?collection=pure-silk" },
       { label: "Georgette",       href: "/shop?collection=georgette" },
       { label: "Cotton Bandhani", href: "/shop?collection=cotton-bandhani" },
-      { label: "Chanderi",        href: "/shop?collection=chanderi" },
+      { label: "Rai-dana bandhej", href: "/shop?collection=chanderi" },
     ],
   },
   {
     group: "By Occasion",
     links: [
-      { label: "Bridal & Wedding", href: "/shop?collection=bridal-wedding" },
+      { label: "Wedding",          href: "/shop?collection=bridal-wedding" },
       { label: "Festive",          href: "/shop?collection=festive" },
       { label: "Daily Wear",       href: "/shop?collection=daily-wear" },
-      { label: "Office Wear",      href: "/shop?collection=office-wear" },
+      { label: "Fusion Wear",      href: "/shop?collection=office-wear" },
       { label: "Gifting",          href: "/shop?collection=gifting" },
     ],
   },
@@ -113,7 +112,7 @@ export default function Header() {
       <div className="bg-maroon text-cream text-[11px] tracking-widest2 uppercase">
         <div className="mx-auto max-w-7xl px-6 py-2 flex items-center justify-between gap-4">
           <span className="hidden sm:block">
-            Free shipping across India &middot; Bespoke orders welcome
+            Free shipping across India
           </span>
           <span className="italic normal-case tracking-normal text-haldi font-display text-[13px] text-center w-full sm:w-auto">
             handcrafted in Gujarat &middot; since generations
@@ -213,10 +212,7 @@ export default function Header() {
                 Our Story
               </a>
               <a href="/contact" className="hover:text-maroon transition-colors">
-                Visit
-              </a>
-              <a href="/contact" className="hover:text-maroon transition-colors">
-                Bespoke
+                Visit Us
               </a>
             </nav>
           )}
@@ -358,10 +354,7 @@ export default function Header() {
               Our Story
             </a>
             <a href="/contact" className="py-4 border-b border-ink/8" onClick={closeMobileMenu}>
-              Visit
-            </a>
-            <a href="/contact" className="py-4 border-b border-ink/8" onClick={closeMobileMenu}>
-              Bespoke
+              Visit Us
             </a>
           </nav>
 
