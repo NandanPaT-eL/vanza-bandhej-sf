@@ -108,13 +108,29 @@ export default async function ProductPage({ params }) {
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 xl:gap-16 items-start">
             {/* Left Column: Image Gallery (7 cols on large screens) */}
             <div className="lg:col-span-7">
+              {/* Mobile-only Heading (Shown above the photo on phone view) */}
+              <div className="lg:hidden space-y-2 mb-4">
+                <div className="flex items-center gap-2">
+                  <span className="text-[10px] tracking-widest2 uppercase font-medium text-maroon bg-maroon/10 px-2.5 py-1 rounded-sm">
+                    {product.productType || "Kutch Bandhani"}
+                  </span>
+                  <span className="text-[10px] tracking-widest2 uppercase text-ink/40">
+                    Handcrafted in Gujarat
+                  </span>
+                </div>
+
+                <h1 className="font-display text-2xl sm:text-3xl text-ink leading-tight tracking-tight">
+                  {product.title}
+                </h1>
+              </div>
+
               <ImageGallery images={images} title={product.title} />
             </div>
 
             {/* Right Column: Sticky Product Purchase Details (5 cols on large screens) */}
             <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-6">
-              {/* Category & Craft Origin Tag */}
-              <div className="space-y-2">
+              {/* Category & Craft Origin Tag + Title (Desktop only, since on mobile it is above photo) */}
+              <div className="hidden lg:block space-y-2">
                 <div className="flex items-center gap-2">
                   <span className="text-[10px] tracking-widest2 uppercase font-medium text-maroon bg-maroon/10 px-2.5 py-1 rounded-sm">
                     {product.productType || "Kutch Bandhani"}
@@ -125,12 +141,12 @@ export default async function ProductPage({ params }) {
                 </div>
 
                 {/* Main Product Title */}
-                <h1 className="font-display text-2xl sm:text-3xl lg:text-4xl text-ink leading-tight tracking-tight">
+                <h1 className="font-display text-3xl lg:text-4xl text-ink leading-tight tracking-tight">
                   {product.title}
                 </h1>
               </div>
 
-              {/* Price & Tax Disclosure */}
+              {/* Price & Tax Disclosure (Below photo on mobile, sticky column on desktop) */}
               <div className="space-y-1.5 pb-2 border-b border-ink/10">
                 <div className="flex items-baseline gap-3">
                   {price && (
