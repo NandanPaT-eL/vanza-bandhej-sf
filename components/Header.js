@@ -311,7 +311,7 @@ export default function Header() {
             {/* Shop — accordion on mobile */}
             <div className="border-b border-ink/8">
               <button
-                className="w-full flex items-center justify-between py-4 text-left"
+                className="w-full flex items-center justify-between py-4 text-left uppercase tracking-widest2"
                 onClick={() => setMobileShopOpen((o) => !o)}
               >
                 <span>Shop</span>
